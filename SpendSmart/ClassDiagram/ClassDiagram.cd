@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SpendSmart.DatabaseContext.SpendSmartDynamoDbContext">
+    <Position X="38.5" Y="1" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAASAAAAAA=</HashCode>
+      <FileName>DatabaseContext\DynamoDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.DatabaseContext.DynamoDbEndpoint&lt;T&gt;">
+    <Position X="19.5" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgBAAAIAAQABAAAABAAAAAAECACAAQAAA=</HashCode>
+      <FileName>DatabaseContext\DynamoDbEndpoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account._Manage._ManageNav">
+    <Position X="44.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIABAAAAAgAAAAAgAAAAABAAAAgAAAAEAAAAAAAA=</HashCode>
+      <FileName>Pages\Account\_Manage\_NavBar.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account._Manage.ChangePasswordModel">
+    <Position X="32.25" Y="3.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="SpendSmart.Pages.Account._Manage.ChangePasswordModel.InputModel">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Account\_Manage\ChangePassword.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAECAAAAAA=</HashCode>
+      <FileName>Pages\Account\_Manage\ChangePassword.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account._Manage.GenerateReportModel">
+    <Position X="26.75" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CACAAAAAAAAAAAABAAAAAAAAEAAEAACEEAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Account\_Manage\GenerateReport.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account.PasswordHasher">
+    <Position X="43" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Account\.PasswordHasher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account.LoginModel">
+    <Position X="30.5" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="SpendSmart.Pages.Account.LoginModel.InputModel">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Account\Login.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAYECAAAAAA=</HashCode>
+      <FileName>Pages\Account\Login.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account.LogoutModel">
+    <Position X="34.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Pages\Account\Logout.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Account.RegisterModel">
+    <Position X="36.5" Y="3.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="SpendSmart.Pages.Account.RegisterModel.InputModel">
+        <TypeIdentifier>
+          <NewMemberFileName>Pages\Account\Register.cshtml.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAYECAAAAAA=</HashCode>
+      <FileName>Pages\Account\Register.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.Accounts.AccountsModel">
+    <Position X="12.75" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAIAAAAAgAAAAAAAAAACAAACAAAEAQAAAAAQ=</HashCode>
+      <FileName>Pages\Dashboard\Content\Accounts\Accounts.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.Budgets.BudgetsModel">
+    <Position X="15.5" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAAgAAAAAIAAAAAAAAAAFAEAQAAAAAQ=</HashCode>
+      <FileName>Pages\Dashboard\Content\Budgets\Budgets.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.Savings.SavingsModel">
+    <Position X="18.25" Y="8.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAIAgAAAIAAAAAgAAAAAAAAAAAEAAAAAAEAQAAAAAQ=</HashCode>
+      <FileName>Pages\Dashboard\Content\Savings\Savings.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.Transactions.TransactionsModel">
+    <Position X="23.5" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CACAAhAAACAAAAAgAAAAAAAAAAAAAAAEAAEAQAAAAAQ=</HashCode>
+      <FileName>Pages\Dashboard\Content\Transactions\Transactions.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.BaseEntity">
+    <Position X="40.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Dashboard\Content\Entities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.AccountsEntity">
+    <Position X="39.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAgAAAAAAAAAABAAAQAAAAAAAAA=</HashCode>
+      <FileName>Pages\Dashboard\Content\Entities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.Content.TransactionsEntity">
+    <Position X="41.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAABAAAAAAAAAEA=</HashCode>
+      <FileName>Pages\Dashboard\Content\Entities.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.DashboardModel">
+    <Position X="21" Y="8.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CACACAAAAAAAAAAhAAgEAACEEAAEAAAkEAAAAAABAAA=</HashCode>
+      <FileName>Pages\Dashboard\Dashboard.cshtml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.Dashboard.MockData">
+    <Position X="41.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Pages\Dashboard\MockData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpendSmart.Pages.ToasterNotification">
+    <Position X="26.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAA=</HashCode>
+      <FileName>Pages\.ToasterNotification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

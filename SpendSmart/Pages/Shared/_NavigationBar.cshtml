@@ -1,0 +1,99 @@
+﻿@{
+    var username = User.Identity.Name;
+    var navItems = new List<(string Href, string Text)>
+    {
+        ("/dashboard", "Dashboard"),
+        ("/dashboard/transactions", "Transactions"),
+        ("/dashboard/accounts", "Accounts"),
+        ("/dashboard/savings", "Savings"),
+        ("/dashboard/budgets", "Budgets")
+    };
+
+    string activePage = Context.Request.Path;
+
+    string GetActiveClass(string linkUrl) =>
+        activePage.Equals(linkUrl, StringComparison.OrdinalIgnoreCase) ||
+        (activePage.StartsWith(linkUrl, StringComparison.OrdinalIgnoreCase) &&
+        !activePage.Substring(linkUrl.Length).StartsWith('/')) ? "bg-white bg-opacity-10 rounded-2" : "";
+
+}
+
+<button class="navbar-toggler d-md-none shadow-none border-0 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#navoffcanvas" aria-controls="navoffcanvas">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="d-flex">
+    <div class="d-none d-md-flex flex-row align-items-center justify-content-between">
+        <ul class="navbar-nav me-auto d-none d-md-flex flex-row mt-1">
+            @foreach (var item in navItems)
+            {
+                <li class="nav-item">
+                    <h6>
+                        <a class="nav-link text-white mx-2 p-2 @(GetActiveClass(item.Href))" href="@item.Href">@item.Text</a>
+                    </h6>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <div class="navbar-nav mx-2">
+        <div class="position-relative">
+            <a class="nav-link dropdown-toggle mx-2 p-2 d-flex align-items-center text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h6 class="mt-1">@username</h6>
+                }
+                else
+                {
+                    <h6 class="mt-1">Profile</h6>
+                }
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end position-absolute mx-2 z-1" aria-labelledby="navbarDropdown">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a id="manage" class="dropdown-item" href="/account/manage" title="Manage">Profile</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/account/logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="dropdown-item" href="/account/register">Register</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="/account/login">Login</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-none d-md-flex text-center align-items-center justify-content-center">
+        <button class="btn theme-switch">
+            <i class="theme-icon bi"></i>
+        </button>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start d-md-none" tabindex="-1" id="navoffcanvas" aria-labelledby="navoffcanvas" style="width: 35%">
+    <div class="offcanvas-header p-2 pb-4 d-flex justify-content-between align-items-center bg-sexy-blue">
+        <button type="button" class="btn-close text-reset mt-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column text-center">
+        @foreach (var item in navItems)
+        {
+            <a class="nav-link p-2" href="@item.Href">@item.Text</a>
+        }
+    </div>
+
+    <div class="d-flex text-center align-items-center justify-content-center">
+        <p class="m-0">Theme:</p>
+        <button class="btn theme-switch">
+            <i class="theme-icon bi"></i>
+        </button>
+    </div>
+</div>

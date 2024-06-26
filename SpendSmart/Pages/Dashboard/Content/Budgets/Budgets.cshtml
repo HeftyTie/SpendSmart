@@ -1,0 +1,114 @@
+﻿@page "/dashboard/budgets"
+@model SpendSmart.Pages.Dashboard.Content.Budgets.BudgetsModel
+@{
+	Layout = "./_DashboardContent";
+	ViewData["Title"] = "Budgets";
+	var budgets = Model.Budgets;
+}
+
+@section TableHeader
+{
+	@if (budgets.Any())
+	{
+		var headerProperties = new List<string> { "Name", "TypeName", "Balance", "Goal" };
+
+		foreach (var propertyName in headerProperties)
+		{
+			var propertyDisplayName = propertyName switch
+			{
+				"Name" => "Account",
+				"TypeName" => "Name",
+				"Goal" => "Budget",
+				_ => propertyName
+			};
+
+			<th>
+				<button id="@($"{propertyName}Sort")" class="btn btn-table m-0 b-0">
+					<span>@propertyDisplayName</span>
+					<i class="bi bi-arrow-down-up ms-2"></i>
+				</button>
+			</th>
+		}
+		<th></th>
+	}
+}
+
+@section TableBody
+{
+	@if (budgets.Any())
+	{
+		foreach (var budget in budgets)
+		{
+			<tr>
+				<td>@budget.Name</td>
+				<td>@budget.TypeName</td>
+				<td class="@(budget.Balance > 0 ? "text-success" : budget.Balance < 0 ? "text-danger" : "")">
+					@budget.Balance.ToString("C2")
+				</td>
+				<td class="@(budget.Goal > 0 ? "text-success" : budget.Goal < 0 ? "text-danger" : "")">
+					@budget.Goal.ToString("C2")
+				</td>
+				<td>
+					<div class="dropdown d-flex justify-content-end position-absolute">
+						<a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-three-dots-vertical"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-1" aria-labelledby="dropdownFor-@budget.Id" style="position: absolute; right: 0; top: 100%; z-index: 1050;">
+							<li>
+								<a class="dropdown-item text-info" data-bs-toggle="modal" data-bs-target="#editModal" data-item-id="@budget.Id">
+									<i class="bi bi-pencil-square h6"></i>
+									<span class="h6 mx-1">Edit</span>
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="@budget.Id">
+									<i class="bi bi-trash h6"></i>
+									<span class="h6 mx-1">Delete</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		}
+	}
+	else
+	{
+		<tr>
+			<td class="text-center">No budgets found.</td>
+		</tr>
+	}
+}
+
+@section AddForm {
+	<div class="form-group">
+		<label asp-for="NewBudget.TypeName" class="form-label">Name</label>
+		<input asp-for="NewBudget.TypeName" type="text" class="form-control" />
+		<span asp-validation-for="NewBudget.TypeName" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewBudget.Goal" class="form-label">Budget</label>
+		<input asp-for="NewBudget.Goal" type="number" class="form-control" />
+		<span asp-validation-for="NewBudget.Goal" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewBudget.Name" class="form-label">Available Accounts</label>
+		<select asp-for="NewBudget.Name" class="form-control accountSelect">
+			@if (TempData["Accounts"] is List<string> accounts && accounts.Any())
+			{
+				accounts = accounts.OrderBy(a => a).ToList();
+				@foreach (var account in accounts)
+				{
+					<option value="@account" data-account="@account">@account</option>
+				}
+			}
+			else
+			{
+				<option value="" disabled selected>No accounts of type 'none' or 'budget' found.</option>
+			}
+		</select>
+		<span asp-validation-for="NewBudget.Name" class="text-danger"></span>
+	</div>
+}

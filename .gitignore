@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/SpendSmart/.vs/SpendSmart
+/SpendSmart/obj
+/SpendSmart.Tests/obj
+/SpendSmart/bin/Debug/net8.0
+/SpendSmart.Tests/bin/Debug/net8.0
+/SpendSmart/bin/Release/net8.0
+/SpendSmart.Tests/bin/Release/net8.0
+/SpendSmart/SpendSmart.csproj.user
+/SpendSmart/.vs/ProjectEvaluation
+/SpendSmart/SpendSmart.sln
+/Releases/.vs/SpendSmart/v17

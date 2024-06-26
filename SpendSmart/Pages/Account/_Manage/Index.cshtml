@@ -1,0 +1,18 @@
+﻿@page "/account/manage"
+@using SpendSmart.Pages.Account._Manage
+@model IndexModel
+@{
+	Layout = "_Layout";
+	ViewData["Title"] = "Profile";
+	ViewData["ActivePage"] = _ManageNav.Index;
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="col-md-9">
+    <input asp-for="Username" class="form-control" disabled />
+</div>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

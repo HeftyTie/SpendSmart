@@ -1,0 +1,115 @@
+﻿@page "/dashboard/accounts"
+@model SpendSmart.Pages.Dashboard.Content.Accounts.AccountsModel
+@{
+	Layout= "./_DashboardContent";
+	ViewData["Title"] = "Accounts";
+	var accounts = Model.Accounts;
+}
+
+@section TableHeader
+{
+	@if (accounts.Any())
+	{
+		var headerProperties = new List<string> { "Name", "Balance", "Type" };
+
+		foreach (var propertyName in headerProperties)
+		{
+			var property = typeof(AccountsEntity).GetProperty(propertyName);
+
+			if (property != null)
+			{
+				<th>
+					<button id="@($"{propertyName}Sort")" class="btn btn-table m-0 b-0">
+						<span>@propertyName</span>
+						<i class="bi bi-arrow-down-up ms-2"></i>
+					</button>
+				</th>
+			}
+		}
+		<th></th>
+	}
+}
+
+@section TableBody
+{
+	@if (accounts.Any())
+	{
+		foreach (var account in accounts)
+		{
+			<tr>
+				<td>@account.Name</td>
+				<td class="@(account.Balance > 0 ? "text-success" : account.Balance < 0 ? "text-danger" : "")">
+					@account.Balance.ToString("C2")
+				</td>
+				<td>@account.Type</td>
+				<td>
+					<div class="dropdown d-flex justify-content-end position-absolute">
+						<a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-three-dots-vertical"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-1" aria-labelledby="dropdownFor-@account.Id" style="position: absolute; right: 0; top: 100%; z-index: 1050;">
+							<li>
+								<a class="dropdown-item text-info" data-bs-toggle="modal" data-bs-target="#editModal" data-item-id="@account.Id">
+									<i class="bi bi-pencil-square h6"></i>
+									<span class="h6 mx-1">Edit</span>
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="@account.Id">
+									<i class="bi bi-trash h6"></i>
+									<span class="h6 mx-1">Delete</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		}
+	}
+	else
+	{
+		<tr>
+			<td class="text-center">No accounts found.</td>
+		</tr>
+	}
+}
+
+@section AddForm {
+	<div class="form-group">
+		<label asp-for="NewAccount.Name" class="form-label"></label>
+		<input asp-for="NewAccount.Name" type="text" class="form-control" />
+		<span asp-validation-for="NewAccount.Name" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewAccount.Balance" class="form-label"></label>
+		<input asp-for="NewAccount.Balance" type="number" class="form-control" />
+		<span asp-validation-for="NewAccount.Balance" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewAccount.Type" class="form-label">Account Type</label>
+		<select asp-for="NewAccount.Type" class="form-control account-type">
+			<option value="None">None</option>
+			<option value="Savings">Savings</option>
+			<option value="Budget">Budget</option>
+		</select>
+		<span asp-validation-for="NewAccount.Type" class="text-danger"></span>
+	</div>
+
+	<div class="d-none goal-form form-group">
+		<div class="form-group">
+			<label asp-for="NewAccount.TypeName" class="form-label">Label</label>
+			<input asp-for="NewAccount.TypeName" type="text" class="form-control" />
+			<span asp-validation-for="NewAccount.TypeName" class="text-danger"></span>
+		</div>
+	</div>
+
+	<div class="d-none type-name-form form-group">
+		<div class="form-group">
+			<label asp-for="NewAccount.Goal" class="form-label">Goal</label>
+			<input asp-for="NewAccount.Goal" type="text" class="form-control" />
+			<span asp-validation-for="NewAccount.Goal" class="text-danger"></span>
+		</div>
+	</div>
+}

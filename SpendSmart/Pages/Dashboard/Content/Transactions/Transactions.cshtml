@@ -1,0 +1,122 @@
+﻿@page "/dashboard/transactions"
+@using SpendSmart.Pages.Dashboard.Content.Accounts
+@model SpendSmart.Pages.Dashboard.Content.Transactions.TransactionsModel
+@{
+	Layout = "./_DashboardContent";
+	ViewData["Title"] = "Transactions";
+	var transactions = Model.Transactions;
+	var currentMonth = Model.Month.ToString("yyyy-MM");
+}
+
+@section DatePicker {
+	<form method="post">
+		<div class="form-group">
+			<input type="month" id="dateRangePicker" class="form-control" 
+				   name="month" value="@currentMonth" @(!User.Identity.IsAuthenticated ? "disabled" : "") onchange="this.form.submit();" />
+		</div>
+	</form>
+
+}
+
+@section TableHeader
+{
+	@if (transactions.Any())
+	{
+		var headerProperties = new List<string> { "Date", "Name", "Account", "Amount" };
+
+		foreach (var propertyName in headerProperties)
+		{
+			<th>
+				<button id="@($"{propertyName}Sort")" class="btn btn-table m-0 b-0">
+					<span>@propertyName</span>
+					<i class="bi bi-arrow-down-up ms-2"></i>
+				</button>
+			</th>
+		}
+
+		<th></th>
+	}
+}
+
+@section TableBody
+{
+	@if (transactions.Any())
+	{
+		foreach (var transaction in transactions)
+		{
+			<tr>
+				<td>@transaction.Date.ToString("MM/dd/yyyy")</td>
+				<td>@transaction.Name</td>
+				<td>@transaction.Account</td>
+				<td class="@(transaction.Amount > 0 ? "text-success" : transaction.Amount < 0 ? "text-danger" : "")">
+					@transaction.Amount.ToString("C2")
+				</td>
+				<td>
+					<div class="dropdown d-flex justify-content-end position-absolute">
+						<a class="nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="bi bi-three-dots-vertical"></i>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end p-1" aria-labelledby="dropdownFor-@transaction.Id" style="position: absolute; right: 0; top: 100%; z-index: 1050;">
+							<li>
+								<a class="dropdown-item text-info" data-bs-toggle="modal" data-bs-target="#editModal" data-item-id="@transaction.Id">
+									<i class="bi bi-pencil-square h6"></i>
+									<span class="h6 mx-1">Edit</span>
+								</a>
+							</li>
+							<li>
+								<a class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="@transaction.Id">
+									<i class="bi bi-trash h6"></i>
+									<span class="h6 mx-1">Delete</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</td>
+			</tr>
+		}
+	}
+	else
+	{
+		<tr>
+			<td class="text-center">No transactions found.</td>
+		</tr>
+	}
+}
+
+@section AddForm {
+	<div class="form-group">
+		<label asp-for="NewTransaction.Date" class="form-label"></label>
+		<input asp-for="NewTransaction.Date" type="date" class="form-control" />
+		<span asp-validation-for="NewTransaction.Date" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewTransaction.Name" class="form-label"></label>
+		<input asp-for="NewTransaction.Name" type="text" class="form-control" />
+		<span asp-validation-for="NewTransaction.Name" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewTransaction.Account" class="form-label"></label>
+		<select asp-for="NewTransaction.Account" class="form-control">
+			@if (TempData["Accounts"] is IEnumerable<AccountsEntity> accounts && accounts.Any())
+			{
+				@foreach (var account in accounts)
+				{
+					<option value="@account.Name" data-account="@account.Name">@account.Name</option>
+				}
+			}
+			else
+			{
+				<option value="">No accounts found.</option>
+			}
+		</select>
+		<span asp-validation-for="NewTransaction.Account" class="text-danger"></span>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="NewTransaction.Amount" class="form-label"></label>
+		<input asp-for="NewTransaction.Amount" type="number" class="form-control" />
+		<span asp-validation-for="NewTransaction.Amount" class="text-danger"></span>
+	</div>
+}

@@ -1,0 +1,218 @@
+﻿@page "/account/manage/generate-report"
+@using SpendSmart.Pages.Account._Manage
+@model GenerateReportModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Generate Report";
+    ViewData["ActivePage"] = _ManageNav.GenerateReport;
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<hr />
+
+<form method="post">
+    <div class="d-flex justify-content-center gap-3">
+        <div class="form-floating mb-3">
+            <input asp-for="Month" class="form-control" type="month" aria-required="true" />
+            <label asp-for="Month" class="form-label"></label>
+            <span asp-validation-for="Month" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Generate report</button>
+    </div>
+</form>
+
+@section Report {
+    @if (Model.Transactions != null)
+	{
+        <div class="container paper d-flex flex-column mx-auto mb-5">
+            <div class="text-center">
+                <h4 class="text-sexy-blue">SpendSmart Report</h4>
+                <h5>Report Generated: @DateTime.Now.Date.ToShortDateString()</h5>
+            </div>
+
+            <h5 class="mt-5">Change Since Last Month</h5>
+            <div class="table-responsive">
+                <table class="table fixed-width">
+                    @if (Model.Debit != 0 && Model.Credit != 0)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>Debit</td>
+                                <td class="@(Model.Debit > 0 ? "text-danger" : Model.Debit < 0 ? "text-success" : "")">
+                                    @Model.Debit.ToString("C2")
+                                </td>
+                                <td>Credit</td>
+                                <td class="@(Model.Credit > 0 ? "text-danger" : Model.Credit < 0 ? "text-success" : "")">
+                                    @Model.Credit.ToString("C2")
+                                </td>
+                            </tr>
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody class="text-center">
+                            <tr>
+                                <td colspan="4">No Transactions found from previous month</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+
+            <h5 class="mt-4">Accounts</h5>
+            <div class="table-responsive">
+                <table class="table fixed-width">
+                    @if (Model.Accounts != null && Model.Accounts.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var account in Model.Accounts)
+                            {
+                                <tr>
+                                    <td>@account.Name</td>
+                                    <td class="@(account.Balance > 0 ? "text-success" : account.Balance < 0 ? "text-danger" : "")">
+                                        @account.Balance.ToString("C2")
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody class="text-center">
+                            <tr>
+                                <td colspan="3">No accounts found</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+
+            <h5 class="mt-4">Savings</h5>
+            <div class="table-responsive">
+                <table class="table fixed-width">
+                    @if (Model.Savings != null && Model.Savings.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Balance</th>
+                                <th>Goal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var saving in Model.Savings)
+                            {
+                                <tr>
+                                    <td>@saving.Name</td>
+                                    <td class="@(saving.Balance > 0 ? "text-success" : saving.Balance < 0 ? "text-danger" : "")">
+                                        @saving.Balance.ToString("C2")
+                                    </td>
+                                    <td class="@(saving.Goal > 0 ? "text-success" : saving.Goal < 0 ? "text-danger" : "")">
+                                        @saving.Goal
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody class="text-center">
+                            <tr>
+                                <td colspan="3">No Savings found</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+
+            <h5 class="mt-4">Budgets</h5>
+            <div class="table-responsive">
+                <table class="table fixed-width">
+                    @if (Model.Budgets != null && Model.Budgets.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Balance</th>
+                                <th>Goal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var budget in Model.Budgets)
+                            {
+                                <tr>
+                                    <td>@budget.Name</td>
+                                    <td class="@(budget.Balance > 0 ? "text-success" : budget.Balance < 0 ? "text-danger" : "")">
+                                        @budget.Balance.ToString("C2")
+                                    </td>
+                                    <td class="@(budget.Goal > 0 ? "text-success" : budget.Goal < 0 ? "text-danger" : "")">
+                                        @budget.Goal
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody class="text-center">
+                            <tr>
+                                <td colspan="3">No Budgets found</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+
+            <h5 class="mt-4">Transactions</h5>
+            <div class="table-responsive">
+                <table class="table fixed-width">
+                    @if (Model.Transactions != null && Model.Transactions.Count > 0)
+                    {
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Amount</th>
+                                <th>Account</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var transaction in Model.Transactions)
+                            {
+                                <tr>
+                                    <td>@transaction.Date.ToShortDateString()</td>
+                                    <td>@transaction.Name</td>
+                                    <td class="@(transaction.Amount > 0 ? "text-success" : transaction.Amount < 0 ? "text-danger" : "")">
+                                        @transaction.Amount.ToString("C2")
+                                    </td>
+                                    <td>@transaction.Account</td>
+                                </tr>
+                            }
+                        </tbody>
+                    }
+                    else
+                    {
+                        <tbody class="text-center">
+                            <tr>
+                                <td colspan="4">No Transactions found</td>
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+	}
+}
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

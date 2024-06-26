@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] | SpendSmart</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/spendsmart.css" asp-append-version="true" />
+    <partial name="_Favicons" />
+    <partial name="_Fonts" />
+</head>
+<body>
+    <header>
+        <nav class="navbar bg-sexy-blue z-2 d-flex flex-md-column">
+               <partial name="_NavigationBar" />
+        </nav>
+    </header>
+
+    <div class="container-fluid p-0">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    @if (TempData["ToasterMessage"] != null)
+    {
+        <div class="position-fixed bottom-0 end-0 toast mx-2 mb-4 mb-md-2 @TempData["ToasterClass"] z-3" role="alert" aria-live="assertive" aria-atomic="true" id="notificationToast">
+            <div class="d-flex align-items-center mx-4 pt-2 h6">
+                <i class="bi @TempData["ToasterIconClass"]"></i>
+                <div class="toast-body">@TempData["ToasterMessage"]</div>
+            </div>
+        </div>
+    }
+
+    <footer class="border-top text-muted">
+        <div class="container d-flex flex-column flex-md-row justify-content-md-end">
+           <div class="d-flex flex-row align-items-center justify-content-center">
+                <p class="m-0 text-center my-2 my-md-3">&copy; @DateTime.Now.Year - Ramon Alvarez</p>
+                <a href="https://github.com/HeftyTie" target="_blank">
+                    <i class="mx-2 bi bi-github"></i>
+                </a>
+           </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/spendsmart.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

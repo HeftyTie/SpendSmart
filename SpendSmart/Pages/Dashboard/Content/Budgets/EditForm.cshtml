@@ -1,0 +1,34 @@
+﻿@model SpendSmart.Pages.Dashboard.Content.AccountsEntity;
+
+<input type="hidden" asp-for="Id" />
+<input type="hidden" asp-for="UserId" />
+<input type="hidden" asp-for="Type" />
+<div class="form-group">
+	<label asp-for="TypeName" class="form-label">Name</label>
+	<input asp-for="TypeName" type="text" class="form-control" />
+	<span asp-validation-for="TypeName" class="text-danger"></span>
+</div>
+<div class="form-group">
+	<label asp-for="Goal" class="form-label">Budget</label>
+	<input asp-for="Goal" type="number" class="form-control" />
+	<span asp-validation-for="Goal" class="text-danger"></span>
+</div>
+<div class="form-group">
+	<label asp-for="Name" class="form-label">Account</label>
+	<select asp-for="Name" class="form-control accountSelect">
+		<option value="@Model.Name" selected>@Model.Name</option>
+		@if (TempData["Accounts"] is List<string> accounts && accounts.Any())
+		{
+			accounts = accounts.OrderBy(a => a).ToList();
+			@foreach (var account in accounts)
+			{
+				<option value="@account" data-account="@account">@account</option>
+			}
+		}
+		else
+		{
+			<option value="" disabled>No accounts of type 'none' or 'budget' found.</option>
+		}
+	</select>
+	<span asp-validation-for="Name" class="text-danger"></span>
+</div>

@@ -1,0 +1,38 @@
+﻿@{
+	Layout = "Shared/_Layout";
+}
+
+<h1 class="my-4 text-center">Manage your account</h1>
+
+<div class="container">
+    <div class="card shadow-sm">
+        <div class="d-md-none">
+            <div class="dropdown mt-4 mx-4 d-flex justify-content-end">
+                <button class="nav-link dropdown-toggle shadow-none btn-primary btn p-2" type="button" id="manageNavDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Menu
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="manageNavDropdown">
+                    <li>
+                        <partial name="_NavBar" />
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 collapse d-md-block" id="manageNav">
+                    <partial name="_NavBar" />
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@RenderSection("Report", required: false)
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

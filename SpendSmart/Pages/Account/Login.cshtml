@@ -1,0 +1,32 @@
+﻿@page "/account/login"
+@model SpendSmart.Pages.Account.LoginModel
+@{
+    Layout = "_AuthLayout";
+	ViewData["Title"] = "Login";
+}
+
+<form id="loginForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+    <div class="form-group">
+        <label asp-for="Input.Username"></label>
+        <input asp-for="Input.Username" class="form-control" />
+        <span asp-validation-for="Input.Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Input.Password"></label>
+        <div class="position-relative">
+            <input asp-for="Input.Password" type="password" autocomplete="new-password" class="form-control" id="password" />
+            <button type="button" class="mx-2 password-toggle-button " onclick="togglePasswordVisibility('password', this)">Show</button>
+        </div>
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group row justify-content-center mt-3">
+        <button type="submit" class="btn btn-primary w-50">Login</button>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

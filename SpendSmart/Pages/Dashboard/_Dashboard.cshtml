@@ -1,0 +1,25 @@
+﻿@{
+    Layout = "Shared/_Layout";
+    var username = User.Identity.Name;
+}
+
+<div class="full-width-header bg-sexy-blue text-center pb-4">
+    <div class="mx-4 pb-5">
+        @if (User.Identity.IsAuthenticated)
+        {
+            <h1 class="display-4 text-white">Hello, @username!</h1>
+        }
+        else
+        {
+            <h1 class="display-4 text-white">Hello, Guest!</h1>
+        }
+    </div>
+</div>
+
+<div class="card mt-5 mx-auto border-0 dashboard-body container flex-grow-1">
+    @RenderBody()
+</div>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

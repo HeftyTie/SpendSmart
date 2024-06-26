@@ -1,0 +1,111 @@
+﻿@page "/dashboard"
+@model SpendSmart.Pages.Dashboard.DashboardModel
+@using System.Text.Json;
+@{
+    Layout = "_Dashboard";
+    ViewData["Title"] = "Dashboard";
+    var currentMonth = Model.Month.ToString("yyyy-MM");
+
+    var pieChartDataJson = JsonSerializer.Serialize(new
+    {
+        Income = Model.Balance > 0 ? Math.Abs(Model.Balance) : 0,
+        Expenses = Math.Abs(Model.Debit),
+        Savings = Math.Abs(Model.Saving),
+    });
+
+    var savingsChartDataJson = JsonSerializer.Serialize(Model.Savings.Select(item => new
+    {
+        item.Name,
+        item.Balance,
+        item.Goal,
+    }));
+
+    var budgetsChartDataJson = JsonSerializer.Serialize(Model.Budgets.Select(item => new
+    {
+        item.Name,
+        item.Balance,
+        item.Goal
+    }));
+
+    var transactionsChartDataJson = JsonSerializer.Serialize(Model.Transactions.Select(item => new
+    {
+        item.Amount,
+        item.Date
+    }));
+}
+
+<input type="hidden" id="pieChartData" value='@pieChartDataJson' />
+<input type="hidden" id="savingsChartData" value='@savingsChartDataJson' />
+<input type="hidden" id="budgetsChartData" value='@budgetsChartDataJson' />
+<input type="hidden" id="transactionsData" value='@transactionsChartDataJson' />
+
+<div class="d-flex justify-content-center mt-3">
+    <form method="post">
+        <div class="form-group">
+            <input type="month" id="dateRangePicker" class="form-control"
+                   name="month" value="@currentMonth" @(!User.Identity.IsAuthenticated ? "disabled" : "") onchange="this.form.submit();" />
+        </div>
+    </form>
+</div>
+
+<div class="row mt-3 mx-1 align-items-stretch">
+    @foreach (var metric in Model.FinancialMetrics)
+    {
+        <div class="col-md-4 mb-md-2 p-2">
+            <div class="card p-0">
+                <h5 class="card-title d-flex justify-content-between card-body h4 pb-2">
+                    <span>@metric.Name</span>
+                    <i class="bi bi-@metric.CssClass"></i>
+                </h5>
+                <div class="card-body py-0 mx-2">
+                    <p class="h5 @(metric.Amount > 0 ? "text-success" : metric.Amount < 0 ? "text-danger" : "" )">
+                        @metric.Amount.ToString("C2")
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="row align-items-center mx-1 mt-2 gap-3 gap-md-0">
+    <div class="col-md-8 d-block align-items-center">
+        <div class="card text-center align-bottom">
+            <h4 class="text-sexy-blue mt-2">Financial Trends</h4>
+            <canvas id="transactionChart" class="m-md-4"></canvas>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center">
+            <h4 class="text-sexy-blue mt-2">Budget Allocation</h4>
+            <canvas id="budgetAllocationChart" class="m-3"></canvas>
+            <h5 id="ratioText" class="my-2"></h5>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 mx-1">
+    @foreach (var category in Model.FinancialCategories)
+    {
+        <div class="col-md-6 px-2 mb-3 m-mb-0">
+            <div class="card card-body h-100">
+                <div class="d-flex h4 justify-content-between align-items-center">
+                    <span>
+                        @category.Name
+                        <i class="mx-2 bi bi-@category.CssClass"></i>
+                    </span>
+                </div>
+                <div class="d-flex flex-column">
+                    <div class="chart-container">
+                        <canvas id="@category.Name-chart" class="w-100"></canvas>
+                    </div>
+                    <div class="text-center h5" id="@category.Name-text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="~/js/dashboard.js" asp-append-version="true"></script>
+}

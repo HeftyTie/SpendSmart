@@ -1,0 +1,13 @@
+﻿@using SpendSmart.Pages.Account._Manage
+
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+        <a class="nav-link @_ManageNav.IndexNavClass(ViewContext)" id="profile" href="/account/manage">Profile</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @_ManageNav.ChangePasswordNavClass(ViewContext)" id="change-password" href="/account/manage/change-password">Password</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @_ManageNav.GenerateReportNavClass(ViewContext)" id="generate-report" href="/account/manage/generate-report">Generate Report</a>
+    </li>
+</ul>
